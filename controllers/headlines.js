@@ -1,0 +1,1 @@
+// this is the controller for the news articles
