@@ -4,6 +4,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const expressHandlebars = require("express-handlebars");
+const mongoose = require("mongoose");
 
 // setting port to either host's designated port, or 3000!
 const PORT = process.env.PORT || 3000;
@@ -30,6 +31,19 @@ app.use(bodyParser.urlencoded({
 
 // pass requests through middleware
 app.use(router);
+
+// direct the app to use the deployed database otherwise use local mongoHeadlines database
+const db = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+// mongoos' connection to database
+mongoose.connect(db, function(error){
+  if(error) {
+    console.log(error);
+  }
+  else {
+    console.log("sam jackson mongoose conek is successful!");
+  }
+});
 
 // listen on this port SAMUEL JACKSON!!!
 app.listen(PORT, function() {
