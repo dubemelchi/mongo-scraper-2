@@ -2,6 +2,8 @@
 
 // require the dependencies
 const express = require("express");
+const bodyParser = require("body-parser");
+const expressHandlebars = require("express-handlebars");
 
 // setting port to either host's designated port, or 3000!
 const PORT = process.env.PORT || 3000;
@@ -14,6 +16,17 @@ var router = express.Router();
 
 // set public folder as static
 app.use(express.static(__dirname + "/public"));
+
+// handlebars connection to app
+app.engine("handlebars", expressHandlebars({
+  defaultLayout: "main"
+}));
+app.set("view engine", "handlebars");
+
+// setup body parser
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 // pass requests through middleware
 app.use(router);
